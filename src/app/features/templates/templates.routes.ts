@@ -8,7 +8,7 @@ export default [
         component: TemplatesListComponent
     },
     {
-        path: ':id',
+        path: ':templateId',
         component: TemplateDetailsComponent
     }
 ] as Routes;

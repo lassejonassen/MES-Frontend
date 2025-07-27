@@ -10,11 +10,12 @@ export const appRoutes: Routes = [
         path: '',
         component: AppLayout,
         children: [
-            { path: '', component: Dashboard },
+            { path: 'templates', loadChildren: () => import('./app/features/templates/templates.routes') },
+            { path: '', loadChildren: () => import('./app/features/features.routes') },
+            { path: 'Dashboard', component: Dashboard },
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },
-            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') },
-            { path: 'templates', loadChildren: () => import('./app/pages/templates/templates.routes').then((m) => m.default) }
+            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
         ]
     },
     { path: 'landing', component: Landing },

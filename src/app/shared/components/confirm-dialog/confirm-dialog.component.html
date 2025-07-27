@@ -1,0 +1,14 @@
+<div style="max-width: min(30rem, 95vw)">
+    <div class="mt-4">
+        <div class="flex align-items-center gap-3">
+            <i [class]="confirmation.icon" style="font-size: 2rem"></i>
+            <span>{{ confirmation.message }}</span>
+        </div>
+    </div>
+    <div class="mt-4">
+        <div class="flex align-items-center justify-content-end gap-1">
+            <p-button type="button" [styleClass]="confirmation.rejectButtonStyleClass" [label]="confirmation.rejectLabel ?? 'Ok'" [icon]="confirmation.rejectIcon" [loading]="rejecting()" (onClick)="cancel()"></p-button>
+            <p-button type="button" [autofocus]="true" [styleClass]="confirmation.acceptButtonStyleClass" [label]="confirmation.acceptLabel ?? 'Yes'" [icon]="confirmation.acceptIcon" [loading]="accepting()" (onClick)="confirm()"></p-button>
+        </div>
+    </div>
+</div>

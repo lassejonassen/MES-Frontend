@@ -1,0 +1,73 @@
+<div #tableContainer>
+    @if (!nodesLoading()) {
+        <p-tree-table #dt [value]="nodes()" [globalFilterFields]="['name', 'description']">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <span>Templates <p-button icon="pi pi-plus" aria-label="Save" (onClick)="showTemplatesDialog()" /></span>
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr style="height: 57px">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th [style.width.rem]="12">&nbsp;</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode" style="height: 57px">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode" />
+                        <a [routerLink]="['/templates', rowData.id]">{{ rowData.name }}</a>
+                    </td>
+                    <td>{{ rowData.description }}</td>
+                    <td [style.width.rem]="12">
+                        <div class="buttons-container">
+                            <div class="flex align-items-center justify-content-end">
+                                <div class="flex align-items-center">
+                                    <p-button type="button" icon="pi pi-pencil" severity="info" (onClick)="showTemplatesDialog(rowData)" [text]="true"></p-button>
+                                    <p-button type="button" icon="pi pi-plus" severity="primary" (onClick)="showCreateDerivedTemplateDialog(rowData)" [text]="true"></p-button>
+                                    <p-button type="button" icon="pi pi-trash" severity="danger" (onClick)="showDeleteTemplateDialog(rowData)" [text]="true"></p-button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-tree-table>
+    }
+    @if (nodesLoading()) {
+        <p-treeTable #dt [value]="[{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                    <span>Templates</span>
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Search" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr style="height: 57px">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th [style.width.rem]="8">&nbsp;</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body">
+                <tr style="height: 57px">
+                    <td>
+                        <p-skeleton width="100%" height="1.25rem"></p-skeleton>
+                    </td>
+                    <td>
+                        <p-skeleton width="100%" height="1.25rem"></p-skeleton>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </ng-template>
+        </p-treeTable>
+    }
+</div>

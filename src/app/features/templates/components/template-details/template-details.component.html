@@ -1,0 +1,18 @@
+<p-card>
+    <ng-template pTemplate="header">
+        <div class="px-2 py-3">
+            @if (template()) {
+                <span class="font-bold text-xl">{{ template()!.name }} ({{ template()!.description }})</span>
+            } @else {
+                <p-skeleton width="25rem" height="1.5rem"></p-skeleton>
+            }
+        </div>
+    </ng-template>
+</p-card>
+<!-- <div class="container">
+    <p-tab class="w-full" value="0">
+        <p-tablist>
+            <p-tab value="0">Properties</p-tab>
+        </p-tablist>
+    </p-tab>
+</div> -->

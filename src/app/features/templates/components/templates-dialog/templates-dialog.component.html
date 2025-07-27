@@ -1,0 +1,22 @@
+<div style="width: 40rem; max-width: calc(95vw - 3rem)">
+    <form [formGroup]="form" (ngSubmit)="save()" class="flex flex-column gap-4">
+        <div class="grid mt-1 mb-1">
+            <div class="col-12">
+                <div class="field">
+                    <input type="text" pInputText formControlName="name" label="Name" />
+                </div>
+                <div class="field">
+                    <input type="text" pInputText formControlName="description" label="Description" />
+                </div>
+            </div>
+        </div>
+        <div class="flex align-items-center justify-content-end gap-2">
+            @if (!saving()) {
+                <p-button type="button" styleClass="p-button-text" label="Cancel" (onClick)="cancel()"></p-button>
+            }
+            <p-button type="submit" label="Ok" icon="pi pi-check" [disabled]="form.invalid || form.pristine" [loading]="saving()"></p-button>
+        </div>
+    </form>
+</div>
+
+<p-toast />
