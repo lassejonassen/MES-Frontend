@@ -7,14 +7,18 @@ import { ActivatedRoute } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { SkeletonModule } from 'primeng/skeleton';
 import { CommonModule } from '@angular/common';
-import { TabsModule } from 'primeng/tabs';
+import { Tab, TabsModule } from 'primeng/tabs';
+import { TemplatePropertiesListComponent } from './template-properties-list/template-properties-list.component';
+
+const COMPONENTS = [TemplatePropertiesListComponent];
+const PRIMENG_MODULES = [CardModule, SkeletonModule, TabsModule];
 
 @Component({
     selector: 'app-template-details',
-    imports: [CommonModule, CardModule, SkeletonModule, TabsModule],
-    standalone: true,
     templateUrl: './template-details.component.html',
     styleUrl: './template-details.component.scss',
+    standalone: true,
+    imports: [CommonModule, ...PRIMENG_MODULES, ...COMPONENTS],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDetailsComponent implements OnInit {

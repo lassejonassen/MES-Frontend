@@ -1,0 +1,106 @@
+<div #tableContainer>
+    <p-table
+        #dt
+        [value]="properties ?? []"
+        [loading]="!propertiesLoaded"
+        [showLoader]="false"
+        [scrollable]="true"
+        [scrollHeight]="'calc(100vh - 405px)'"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-sm"
+        [globalFilterFields]="['name', 'description']"
+        sortMode="multiple"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between h-3rem">
+                <div class="flex align-items-center gap-2">
+                    <p-button (onClick)="showCreatePropertyDialog()" icon="pi pi-plus" [disabled]="!propertiesLoaded"></p-button>
+                </div>
+                <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeHolder="Search" [disabled]="!propertiesLoaded" />
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th id="name" pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th id="description">Description</th>
+                <th id="type" pSortableColumn="type">Type <p-sortIcon field="type" /></th>
+                <th id="defaultValue">Default Value</th>
+                <th id="readonly">Readonly</th>
+                <th id="required">Required</th>
+                <th id="actions" [style.width.rem]="8"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-property>
+            <tr>
+                <td>{{ property.name }}</td>
+                <td>{{ property.description }}</td>
+                <td>
+                    <div class="flex align-items-center gap-1">
+                        <span>Property Type</span>
+                        <div class="buttons-container">
+                            <p-button *ngIf="property.type === PropertyType.Dropdown" type="button" icon="pi pi-list" (onClick)="showEditDropdownItemsDialog(property)" [text]="true" pTooltip="Some tool tip"></p-button>
+                            <p-button
+                                *ngIf="property.type === PropertyType.TranslationTable || property.type === PropertyType.Table"
+                                type="button"
+                                icon="pi pi-list"
+                                (onClick)="showEditTableColumnItemsDialog(property)"
+                                [text]="true"
+                                pTooltip="Some tool tip"
+                            ></p-button>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <app-property-value [property]="property"></app-property-value>
+                </td>
+                <td>
+                    @if (property.isReadOnly) {
+                        <span class="p-tag p-tag-info">Yes</span>
+                    } @else {
+                        <span class="p-tag p-tag-secondary">No</span>
+                    }
+                </td>
+                <td>
+                    @if (property.isRequired) {
+                        <span class="p-tag p-tag-info">Yes</span>
+                    } @else {
+                        <span class="p-tag p-tag-secondary">No</span>
+                    }
+                </td>
+                <td>
+                    <div class="buttons-container">
+                        <div class="flex align-items-center justify-content-end">
+                            <div class="flex align-items-center">
+                                <p-button type="button" icon="pi pi-pencil" (onClick)="showEditPropertyDialog(property)" [text]="true"></p-button>
+                                <p-button type="button" icon="pi pi-trash" severity="danger" (onClick)="showDeletePropertyDialog(property)" [text]="true"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="20" class="h-3rem border-none">Empty</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="loadingbody">
+            <p>Loading properties...</p>
+            <!-- @for (let i = 0; i < 6; i++) {
+                <tr>
+                    @for (let i of 6) {
+                        <td class="p-3">
+                            <p-skeleton width="100%" height="1.25rem"></p-skeleton>
+                        </td>
+                        <td>&nbsp;</td>
+                    }
+                </tr>
+            } -->
+        </ng-template>
+    </p-table>
+</div>

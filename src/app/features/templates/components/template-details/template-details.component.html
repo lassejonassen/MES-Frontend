@@ -9,10 +9,15 @@
         </div>
     </ng-template>
 </p-card>
-<!-- <div class="container">
-    <p-tab class="w-full" value="0">
+<div class="container">
+    <p-tabs value="0">
         <p-tablist>
             <p-tab value="0">Properties</p-tab>
         </p-tablist>
-    </p-tab>
-</div> -->
+        <p-tabpanels>
+            <p-tabpanel value="0">
+                <app-template-properties-list [templateId]="templateId" [properties]="templatePropertiesService.properties$ | async" [propertiesLoaded]="propertiesLoaded()"></app-template-properties-list>
+            </p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
+</div>
